@@ -1,0 +1,72 @@
+[
+  {
+    "id": "fe76fde4-3ab9-4b52-8f0c-7bf819d184f6",
+    "useremail": "soham@gmail.com",
+    "reason": "sofa",
+    "category": "expense (discretionary)",
+    "description": "d",
+    "amount": 100000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "f2fd3ef2-6936-4e26-b114-f31195174292",
+    "useremail": "soham@gmail.com",
+    "reason": "mfunds",
+    "category": "investment",
+    "description": "450000",
+    "amount": 450000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "c54112c4-cf3f-467f-95bf-f86450c2c2ba",
+    "useremail": "soham@gmail.com",
+    "reason": "sofa",
+    "category": "expense (discretionary)",
+    "description": "d",
+    "amount": 100000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "616c1740-4a1f-46e5-b283-ede74fef1710",
+    "useremail": "soham@gmail.com",
+    "reason": "mfunds",
+    "category": "investment",
+    "description": "hehe",
+    "amount": 500000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "26da1977-0126-4856-99fc-7e2ba0a9c717",
+    "useremail": "soham@gmail.com",
+    "reason": "sofa",
+    "category": "expense (discretionary)",
+    "description": "d",
+    "amount": 60000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "9c47f318-5fd8-4ab4-88cc-21c38c2bfb46",
+    "useremail": "soham@gmail.com",
+    "reason": "mfunds",
+    "category": "investment",
+    "description": "d",
+    "amount": 250000,
+    "createdAt": "2025-07-14",
+    "cycle": false
+  },
+  {
+    "id": "40783ec7-50b1-4021-8371-32ad6af7b715",
+    "useremail": "soham@gmail.com",
+    "reason": "sofa",
+    "category": "expense (discretionary)",
+    "description": "wow",
+    "amount": 10000,
+    "createdAt": "2025-07-15",
+    "cycle": true
+  }
+]

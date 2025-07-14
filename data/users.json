@@ -1,0 +1,28 @@
+[
+  {
+    "name": "soham",
+    "email": "soham@gmail.com",
+    "password": "123456",
+    "income": "500000",
+    "lastPayDate": "2025-07-14",
+    "totalSavings": 190000,
+    "totalInvestment": 1200000,
+    "monthSavings": 0,
+    "monthInvestment": 0,
+    "monthExpensesNecessity": 0,
+    "monthExpensesDiscretionary": 10000
+  },
+  {
+    "name": "ram",
+    "email": "ram@gmail.com",
+    "password": "123456",
+    "income": "40000",
+    "lastPayDate": "2025-07-14",
+    "totalSavings": 0,
+    "totalInvestment": 0,
+    "monthSavings": 0,
+    "monthInvestment": 0,
+    "monthExpensesNecessity": 0,
+    "monthExpensesDiscretionary": 0
+  }
+]
