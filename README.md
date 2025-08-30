@@ -35,50 +35,32 @@ The app classifies your spending into 4 categories based on your monthly income:
 ### ✅ Prerequisites
 
 - Create the following DynamoDB tables on AWS:
-  - `users`
-  - `expenses`
-  - `notifications`
+  - `users - partition key - email (string)`
+  - `expenses - partition key - id (string)`
+  - `notifications - partition key - id (string)`
+  - `add a secondary index to expenses and tables with name email and the column email (string)`
 - Generate a pair of **Access Key** and **Secret Key** from AWS IAM
 
-### 🐳 Steps to Run
-
-```bash
-# 1. Install Docker
-https://docs.docker.com/get-docker/
-
-# 2. Pull the Docker image
-docker pull soham794/penny-wise:latest
-
-# 3. Run the container with your AWS credentials
-docker run -d -p 3000:3000 \
-  -e ACCESS_KEY=<YOUR AWS ACCESS KEY> \
-  -e SECRET_KEY=<YOUR AWS SECRET KEY> \
-  soham794/penny-wise:latest
-
-# 4. Open your browser and visit:
-http://localhost:3000
-```
-
-### 🐳 Steps to Host on EC2
+### 🐳 Steps to Host on EC2 or run locally
 
 ```bash
 # 1. Update system and install Docker
-sudo apt update && sudo apt install -y docker.io
+sudo yum update && sudo yum install -y docker.io
 
 # 2. Start Docker and give permission to your user
 sudo systemctl start docker
 sudo usermod -aG docker $USER
 
 # 3. Pull the Docker image
-docker pull soham794/penny-wise:latest
+sudo docker pull soham794/penny-wise:latest
 
 # 4. Run the container (on port 80)
-docker run -d -p 80:3000 \
+sudo docker run -d -p 80:3000 \
   -e ACCESS_KEY=your_access_key \
   -e SECRET_KEY=your_secret_key \
   soham794/penny-wise:latest
 ```
 
-#### My hosted project on EC2 ( video ) - https://drive.google.com/file/d/1Kd8K-nvWrImhj429QNX0qO1vR0CVbL8b/view?usp=drive_link 
+#### My hosted project on EC2 ( video ) - [https://drive.google.com/file/d/1Kd8K-nvWrImhj429QNX0qO1vR0CVbL8b/view?usp=drive_link ](https://drive.google.com/drive/folders/1UrgytXAOfEyC7XvMUwKdJiMioibpTWmI?usp=drive_link) 
 
 #### Docker Link - https://hub.docker.com/r/soham794/penny-wise
