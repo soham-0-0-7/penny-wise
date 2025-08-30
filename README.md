@@ -41,7 +41,7 @@ The app classifies your spending into 4 categories based on your monthly income:
   - `add a secondary index to expenses and tables with name email and the column email (string)`
 - Generate a pair of **Access Key** and **Secret Key** from AWS IAM
 
-### 🐳 Steps to Host on EC2 or run locally
+### 🐳 Steps to Host on EC2 
 
 ```bash
 # 1. Update system and install Docker
