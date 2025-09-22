@@ -13,7 +13,7 @@ const CATEGORY_OPTIONS = [
 ] as const;
 
 export default function AddExpensePage() {
-  const { useremail, isHydrated } = useUser();
+  const { email, isHydrated } = useUser();
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -29,11 +29,11 @@ export default function AddExpensePage() {
 
   // 🔒 Redirect to login if not authenticated
   useEffect(() => {
-    if (isHydrated && !useremail) router.push("/login");
-  }, [isHydrated, useremail, router]);
+    if (isHydrated && !email) router.push("/login");
+  }, [isHydrated, email, router]);
 
   if (!isHydrated) return null;
-  if (!useremail) return null; // waiting for redirect
+  if (!email) return null; // waiting for redirect
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -57,7 +57,7 @@ export default function AddExpensePage() {
       setIsSubmitting(false);
       return;
     }
-    if (!useremail) {
+    if (!email) {
       setError("User email missing in context");
       setIsSubmitting(false);
       return;
@@ -71,7 +71,7 @@ export default function AddExpensePage() {
           category,
           description,
           amount: Number(amount),
-          useremail,
+          email,
         }),
       });
 

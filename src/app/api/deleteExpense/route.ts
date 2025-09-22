@@ -1,46 +1,22 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const usersPath = path.resolve(process.cwd(), "data/users.json");
-const expensesPath = path.resolve(process.cwd(), "data/expenses.json");
-
-interface Expense {
-  id: string;
-  useremail: string;
-  reason: string;
-  category: string;
-  description: string;
-  amount: number;
-  createdAt: string;
-  cycle: boolean;
-}
-
-interface User {
-  email: string;
-  totalSavings: number;
-  totalInvestment: number;
-  monthSavings: number;
-  monthInvestment: number;
-  monthExpensesNecessity: number;
-  monthExpensesDiscretionary: number;
-}
+import {
+  deleteExpense,
+  getUserByEmail,
+  putUser,
+  getUserExpenses,
+} from "@/utils/db-helpers";
 
 export async function POST(req: NextRequest) {
-  const { id, useremail }: { id: string; useremail: string } = await req.json();
+  const { id, email }: { id: string; email: string } = await req.json();
 
-  let expenses: Expense[] = JSON.parse(fs.readFileSync(expensesPath, "utf-8"));
-  const users: User[] = JSON.parse(fs.readFileSync(usersPath, "utf-8"));
-
-  const expense = expenses.find(
-    (e) => e.id === id && e.useremail === useremail
-  );
-  if (!expense)
-    return NextResponse.json({ error: "Expense not found" }, { status: 404 });
-
-  const user = users.find((u) => u.email === useremail);
+  const user = await getUserByEmail(email);
   if (!user)
     return NextResponse.json({ error: "User not found" }, { status: 404 });
+
+  const expenses = await getUserExpenses(email);
+  const expense = expenses.find((e) => e.id === id);
+  if (!expense)
+    return NextResponse.json({ error: "Expense not found" }, { status: 404 });
 
   switch (expense.category) {
     case "savings":
@@ -59,9 +35,8 @@ export async function POST(req: NextRequest) {
       break;
   }
 
-  expenses = expenses.filter((e) => e.id !== id);
-  fs.writeFileSync(expensesPath, JSON.stringify(expenses, null, 2));
-  fs.writeFileSync(usersPath, JSON.stringify(users, null, 2));
+  await putUser(user);
+  await deleteExpense(id);
 
   return NextResponse.json({ success: true });
 }

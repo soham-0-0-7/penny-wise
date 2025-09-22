@@ -1,29 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const notificationsPath = path.resolve(
-  process.cwd(),
-  "data/notifications.json"
-);
-
-interface Notification {
-  id: string;
-  useremail: string;
-  message: string;
-  createdAt: string;
-}
+import { deleteNotification, getUserNotifications } from "@/utils/db-helpers";
 
 export async function POST(req: NextRequest) {
-  const { id, useremail }: { id: string; useremail: string } = await req.json();
+  const { id, email }: { id: string; email: string } = await req.json();
 
-  let notifications: Notification[] = JSON.parse(
-    fs.readFileSync(notificationsPath, "utf-8")
-  );
-  notifications = notifications.filter(
-    (n) => !(n.id === id && n.useremail === useremail)
-  );
+  const notifs = await getUserNotifications(email);
+  const exists = notifs.some((n) => n.id === id);
+  if (!exists)
+    return NextResponse.json(
+      { error: "Notification not found" },
+      { status: 404 }
+    );
 
-  fs.writeFileSync(notificationsPath, JSON.stringify(notifications, null, 2));
+  await deleteNotification(id);
   return NextResponse.json({ success: true });
 }

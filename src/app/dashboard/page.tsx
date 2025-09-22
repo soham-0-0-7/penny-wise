@@ -25,7 +25,7 @@ import {
 /* ---------- interfaces (unchanged) ---------- */
 interface Expense {
   id: string;
-  useremail: string;
+  email: string;
   reason: string;
   category: string;
   description: string;
@@ -35,7 +35,7 @@ interface Expense {
 }
 interface Notification {
   id: string;
-  useremail: string;
+  email: string;
   message: string;
   createdAt: string;
 }
@@ -56,7 +56,7 @@ export default function Dashboard() {
   const {
     username,
     userincome,
-    useremail,
+    email,
     isHydrated,
     setUserincome,
     clearUser,
@@ -70,15 +70,15 @@ export default function Dashboard() {
 
   /* ---------- auth guard ---------- */
   useEffect(() => {
-    if (isHydrated && !useremail) router.push("/login");
-  }, [isHydrated, useremail, router]);
+    if (isHydrated && !email) router.push("/login");
+  }, [isHydrated, email, router]);
 
   /* ---------- fetch userData ---------- */
   useEffect(() => {
-    if (!isHydrated || !useremail) return;
+    if (!isHydrated || !email) return;
     fetch("/api/userData", {
       method: "POST",
-      body: JSON.stringify({ useremail }),
+      body: JSON.stringify({ email }),
     })
       .then((r) => r.json())
       .then((data) => {
@@ -88,7 +88,7 @@ export default function Dashboard() {
           Array.isArray(data.notifications) ? data.notifications : []
         );
       });
-  }, [isHydrated, useremail]);
+  }, [isHydrated, email]);
 
   /* ---------- helpers ---------- */
   const logout = () => {
@@ -101,7 +101,7 @@ export default function Dashboard() {
       type === "expense" ? "/api/deleteExpense" : "/api/deleteNotification";
     await fetch(endpoint, {
       method: "POST",
-      body: JSON.stringify({ id, useremail }),
+      body: JSON.stringify({ id, email }),
     });
     setExpenses((prev) => prev.filter((e) => e.id !== id));
     setNotifications((prev) => prev.filter((n) => n.id !== id));
@@ -113,7 +113,7 @@ export default function Dashboard() {
 
     const res = await fetch("/api/payDay", {
       method: "POST",
-      body: JSON.stringify({ useremail, newIncome: Number(payAmount) }),
+      body: JSON.stringify({ email, newIncome: Number(payAmount) }),
     });
     const data = await res.json();
     if (!res.ok || data.error) return alert(data.error || "Payday failed");
@@ -133,7 +133,7 @@ export default function Dashboard() {
         </div>
       </div>
     );
-  if (!useremail) return null;
+  if (!email) return null;
 
   /* ---------- max‑limit math ---------- */
   const income = Number(userincome);
@@ -314,7 +314,7 @@ export default function Dashboard() {
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-lg font-semibold text-gray-900 flex items-center">
               <Calendar className="w-5 h-5 mr-2 text-blue-600" />
-              This Months Expenses
+              This Month&apos;s Expenses
             </h3>
             <button
               onClick={() => setShowAll(true)}

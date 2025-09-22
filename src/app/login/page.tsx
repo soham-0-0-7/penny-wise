@@ -13,7 +13,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { setUsername, setUserincome, setUseremail, isHydrated, isLoggedIn } =
+  const { setUsername, setUserincome, setEmail, isHydrated, isLoggedIn } =
     useUser();
 
   // Redirect if already logged in
@@ -84,7 +84,7 @@ export default function LoginPage() {
       // Set user data in context (this will also save to sessionStorage)
       setUsername(data.name);
       setUserincome(data.income);
-      setUseremail(email);
+      setEmail(email);
 
       // Small delay to ensure context is updated
       setTimeout(() => {

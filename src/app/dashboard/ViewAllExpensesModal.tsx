@@ -2,7 +2,7 @@
 
 interface Expense {
   id: string;
-  useremail: string;
+  email: string;
   reason: string;
   category: string;
   description: string;
@@ -179,7 +179,7 @@ export default function ViewAllExpensesModal({ expenses, onClose }: Props) {
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                           />
                         </svg>
-                        {expense.useremail}
+                        {expense.email}
                       </div>
                       <div className="text-xs text-gray-400">
                         ID: {expense.id.substring(0, 8)}...

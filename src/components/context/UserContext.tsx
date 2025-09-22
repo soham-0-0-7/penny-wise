@@ -11,10 +11,10 @@ import {
 interface UserContextType {
   username: string;
   userincome: string;
-  useremail: string;
+  email: string;
   setUsername: (name: string) => void;
   setUserincome: (income: string) => void;
-  setUseremail: (email: string) => void;
+  setEmail: (email: string) => void;
   isHydrated: boolean;
   clearUser: () => void;
   isLoggedIn: boolean;
@@ -25,18 +25,18 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 export const UserProvider = ({ children }: { children: ReactNode }) => {
   const [username, setUsername] = useState("");
   const [userincome, setUserincome] = useState("");
-  const [useremail, setUseremail] = useState("");
+  const [email, setEmail] = useState("");
   const [isHydrated, setIsHydrated] = useState(false);
 
   // Load user data from sessionStorage on mount
   useEffect(() => {
     const savedUsername = sessionStorage.getItem("username") || "";
     const savedUserincome = sessionStorage.getItem("userincome") || "";
-    const savedUseremail = sessionStorage.getItem("useremail") || "";
+    const savedemail = sessionStorage.getItem("email") || "";
 
     setUsername(savedUsername);
     setUserincome(savedUserincome);
-    setUseremail(savedUseremail);
+    setEmail(savedemail);
     setIsHydrated(true);
   }, []);
 
@@ -45,30 +45,30 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     if (isHydrated) {
       sessionStorage.setItem("username", username);
       sessionStorage.setItem("userincome", userincome);
-      sessionStorage.setItem("useremail", useremail);
+      sessionStorage.setItem("email", email);
     }
-  }, [username, userincome, useremail, isHydrated]);
+  }, [username, userincome, email, isHydrated]);
 
   const clearUser = () => {
     setUsername("");
     setUserincome("");
-    setUseremail("");
+    setEmail("");
     sessionStorage.removeItem("username");
     sessionStorage.removeItem("userincome");
-    sessionStorage.removeItem("useremail");
+    sessionStorage.removeItem("email");
   };
 
-  const isLoggedIn = useremail !== "";
+  const isLoggedIn = email !== "";
 
   return (
     <UserContext.Provider
       value={{
         username,
         userincome,
-        useremail,
+        email,
         setUsername,
         setUserincome,
-        setUseremail,
+        setEmail,
         isHydrated,
         clearUser,
         isLoggedIn,

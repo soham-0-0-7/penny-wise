@@ -1,46 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
-
-const filePath = path.resolve(process.cwd(), "data/users.json");
-
-interface User {
-  name: string;
-  email: string;
-  password: string;
-  income: string;
-  lastPayDate: string;
-  totalSavings: number;
-  totalInvestment: number;
-  monthSavings: number;
-  monthInvestment: number;
-  monthExpensesNecessity: number;
-  monthExpensesDiscretionary: number;
-}
+import { getUserByEmail, putUser } from "@/utils/db-helpers";
 
 export async function POST(req: NextRequest) {
-  const { name, email, password, income } = (await req.json()) as {
-    name: string;
-    email: string;
-    password: string;
-    income: string;
-  };
+  const { name, email, password, income } = await req.json();
 
-  /* -------- ensure users.json exists -------- */
-  if (!fs.existsSync(filePath)) {
-    fs.mkdirSync(path.dirname(filePath), { recursive: true });
-    fs.writeFileSync(filePath, "[]", "utf-8");
-  }
-
-  const users: User[] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-
-  if (users.find((u) => u.email === email)) {
+  const existingUser = await getUserByEmail(email);
+  if (existingUser)
     return NextResponse.json({ error: "User already exists, try login." });
-  }
 
-  const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
+  const today = new Date().toISOString().split("T")[0];
 
-  const newUser: User = {
+  const newUser = {
     name,
     email,
     password,
@@ -54,8 +24,6 @@ export async function POST(req: NextRequest) {
     monthExpensesDiscretionary: 0,
   };
 
-  users.push(newUser);
-  fs.writeFileSync(filePath, JSON.stringify(users, null, 2));
-
+  await putUser(newUser);
   return NextResponse.json({ success: true, name, income });
 }

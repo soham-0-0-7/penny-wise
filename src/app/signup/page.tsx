@@ -26,7 +26,7 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { useremail, setUsername, setUserincome, setUseremail } = useUser();
+  const { setUsername, setUserincome, setEmail } = useUser();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -80,8 +80,8 @@ export default function SignupPage() {
 
       setUsername(name);
       setUserincome(income);
-      setUseremail(email);
-      console.log(useremail);
+      setEmail(email);
+      console.log(email);
       router.push("/dashboard");
     } catch (err) {
       setError("Network error. Please try again. - " + err);
