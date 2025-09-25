@@ -45,7 +45,7 @@ The app classifies your spending into 4 categories based on your monthly income:
 
 ```bash
 # 1. Update system and install Docker
-sudo yum update && sudo yum install -y docker.io
+sudo yum update && sudo yum install -y docker
 
 # 2. Start Docker and give permission to your user
 sudo systemctl start docker
